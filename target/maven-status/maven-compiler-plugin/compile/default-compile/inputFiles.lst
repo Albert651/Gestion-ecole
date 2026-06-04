@@ -1,0 +1,5 @@
+/home/kevine/Bureau/gestion-ecoles/src/main/java/com/ecole/gestionecoles/GestionEcolesApplication.java
+/home/kevine/Bureau/gestion-ecoles/src/main/java/com/ecole/gestionecoles/config/CorsConfig.java
+/home/kevine/Bureau/gestion-ecoles/src/main/java/com/ecole/gestionecoles/controller/EtablissementController.java
+/home/kevine/Bureau/gestion-ecoles/src/main/java/com/ecole/gestionecoles/model/Etablissement.java
+/home/kevine/Bureau/gestion-ecoles/src/main/java/com/ecole/gestionecoles/repository/EtablissementRepository.java
