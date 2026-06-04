@@ -9,8 +9,6 @@ import jakarta.persistence.Table;
 
 /**
  * Une entite = une table dans la base de donnees.
- * Spring va creer automatiquement la table "etablissements"
- * a partir de cette classe (grace a ddl-auto=update).
  */
 @Entity
 @Table(name = "etablissements")
@@ -23,20 +21,20 @@ public class Etablissement {
     @Column(nullable = false)
     private String nom;
 
-    // "columnDefinition = TEXT" autorise les longs textes
     @Column(columnDefinition = "TEXT")
     private String description;
 
     private String adresse;
 
-    // Les caracteristiques uniques affichees sur la page de detail
     @Column(columnDefinition = "TEXT")
     private String caracteristiques;
 
-    // Lien vers l'image stockee dans Supabase Storage
+    // Image principale (photo de l'etablissement)
     private String imageUrl;
 
-    // Coordonnees du directeur (page contact)
+    // NOUVEAU : logo de l'etablissement
+    private String logoUrl;
+
     private String email;
 
     private String telephone;
@@ -47,7 +45,6 @@ public class Etablissement {
     }
 
     // ----- Getters & Setters -----
-    // (Spring/JPA en a besoin pour lire et ecrire les champs)
 
     public Long getId() {
         return id;
@@ -95,6 +92,14 @@ public class Etablissement {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public String getEmail() {
