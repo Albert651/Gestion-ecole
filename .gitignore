@@ -1,0 +1,17 @@
+# Build
+target/
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# Secrets / config locale (ne jamais versionner)
+application-local.properties
+src/main/resources/application-local.properties
+.env
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
