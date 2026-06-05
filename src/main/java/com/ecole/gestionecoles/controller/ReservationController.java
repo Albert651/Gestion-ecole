@@ -4,6 +4,7 @@ import com.ecole.gestionecoles.model.Etablissement;
 import com.ecole.gestionecoles.model.Reservation;
 import com.ecole.gestionecoles.repository.EtablissementRepository;
 import com.ecole.gestionecoles.repository.ReservationRepository;
+import com.ecole.gestionecoles.service.EmailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,7 +23,6 @@ import java.util.Optional;
 
 /**
  * Routes : http://localhost:8080/api/reservations
- * Toutes ces routes exigent d'etre connecte (voir SecurityConfig).
  */
 @RestController
 @RequestMapping("/api/reservations")
@@ -30,11 +30,14 @@ public class ReservationController {
 
     private final ReservationRepository repository;
     private final EtablissementRepository etablissementRepository;
+    private final EmailService emailService;
 
     public ReservationController(ReservationRepository repository,
-                                 EtablissementRepository etablissementRepository) {
+                                 EtablissementRepository etablissementRepository,
+                                 EmailService emailService) {
         this.repository = repository;
         this.etablissementRepository = etablissementRepository;
+        this.emailService = emailService;
     }
 
     // POST /api/reservations  -> un utilisateur connecte reserve un etablissement
@@ -48,10 +51,12 @@ public class ReservationController {
         }
 
         Reservation r = new Reservation();
-        // L'email vient du JETON, pas du corps de la requete (securite)
         r.setUtilisateurEmail(utilisateur.getUsername());
         r.setEtablissementId(demande.getEtablissementId());
         r.setEtablissementNom(etabOpt.get().getNom());
+        r.setNomComplet(demande.getNomComplet());
+        r.setTelephone(demande.getTelephone());
+        r.setDateSouhaitee(demande.getDateSouhaitee());
         r.setNote(demande.getNote());
         r.setStatut("EN_ATTENTE");
 
@@ -76,7 +81,12 @@ public class ReservationController {
                                            @RequestBody Map<String, String> body) {
         return repository.findById(id).map(r -> {
             r.setStatut(body.getOrDefault("statut", r.getStatut()));
-            return ResponseEntity.ok(repository.save(r));
+            Reservation enregistre = repository.save(r);
+
+            // On notifie l'utilisateur par e-mail du nouveau statut
+            emailService.envoyerNotificationReservation(enregistre);
+
+            return ResponseEntity.ok(enregistre);
         }).orElse(ResponseEntity.notFound().build());
     }
 

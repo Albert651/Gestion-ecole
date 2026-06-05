@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/etablissements/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/annonces/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/communiques/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/messages").permitAll()
 
                         // --- Routes reservees a l'ADMIN ---
@@ -52,6 +53,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/etablissements/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/annonces/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/annonces/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/communiques/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/communiques/**").hasRole("ADMIN")
 
                         // --- RESERVATIONS ---
                         .requestMatchers(HttpMethod.POST, "/api/reservations").authenticated()      // reserver

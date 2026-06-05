@@ -10,11 +10,12 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * Une annonce / publication, reliee a un etablissement.
+ * Un communique, relie a un etablissement.
+ * Detaille les modalites d'admission et les frais.
  */
 @Entity
-@Table(name = "annonces")
-public class Annonce {
+@Table(name = "communiques")
+public class Communique {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,13 @@ public class Annonce {
     private String titre;
 
     @Column(columnDefinition = "TEXT")
-    private String contenu;
+    private String modalitesAdmission;
+
+    private String fraisInscription;
+    private String fraisScolarite;
+
+    // Periode des frais de scolarite : "Par mois", "Par semestre", "Par an"...
+    private String periodeScolarite;
 
     // Lien vers l'etablissement concerne
     private Long etablissementId;
@@ -32,7 +39,7 @@ public class Annonce {
 
     private LocalDateTime datePublication = LocalDateTime.now();
 
-    public Annonce() {
+    public Communique() {
     }
 
     // ----- Getters & Setters -----
@@ -43,8 +50,17 @@ public class Annonce {
     public String getTitre() { return titre; }
     public void setTitre(String titre) { this.titre = titre; }
 
-    public String getContenu() { return contenu; }
-    public void setContenu(String contenu) { this.contenu = contenu; }
+    public String getModalitesAdmission() { return modalitesAdmission; }
+    public void setModalitesAdmission(String modalitesAdmission) { this.modalitesAdmission = modalitesAdmission; }
+
+    public String getFraisInscription() { return fraisInscription; }
+    public void setFraisInscription(String fraisInscription) { this.fraisInscription = fraisInscription; }
+
+    public String getFraisScolarite() { return fraisScolarite; }
+    public void setFraisScolarite(String fraisScolarite) { this.fraisScolarite = fraisScolarite; }
+
+    public String getPeriodeScolarite() { return periodeScolarite; }
+    public void setPeriodeScolarite(String periodeScolarite) { this.periodeScolarite = periodeScolarite; }
 
     public Long getEtablissementId() { return etablissementId; }
     public void setEtablissementId(Long etablissementId) { this.etablissementId = etablissementId; }

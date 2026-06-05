@@ -1,7 +1,7 @@
 package com.ecole.gestionecoles.controller;
 
-import com.ecole.gestionecoles.model.Annonce;
-import com.ecole.gestionecoles.repository.AnnonceRepository;
+import com.ecole.gestionecoles.model.Communique;
+import com.ecole.gestionecoles.repository.CommuniqueRepository;
 import com.ecole.gestionecoles.repository.EtablissementRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,34 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Routes : http://localhost:8080/api/annonces
+ * Routes : http://localhost:8080/api/communiques
  */
 @RestController
-@RequestMapping("/api/annonces")
-public class AnnonceController {
+@RequestMapping("/api/communiques")
+public class CommuniqueController {
 
-    private final AnnonceRepository repository;
+    private final CommuniqueRepository repository;
     private final EtablissementRepository etablissementRepository;
 
-    public AnnonceController(AnnonceRepository repository,
-                             EtablissementRepository etablissementRepository) {
+    public CommuniqueController(CommuniqueRepository repository,
+                                EtablissementRepository etablissementRepository) {
         this.repository = repository;
         this.etablissementRepository = etablissementRepository;
     }
 
     @GetMapping
-    public List<Annonce> listerTous() {
+    public List<Communique> listerTous() {
         return repository.findAllByOrderByDatePublicationDesc();
     }
 
     @PostMapping
-    public Annonce creer(@RequestBody Annonce annonce) {
-        // Si un etablissement est choisi, on remplit son nom automatiquement
-        if (annonce.getEtablissementId() != null) {
-            etablissementRepository.findById(annonce.getEtablissementId())
-                    .ifPresent(e -> annonce.setEtablissementNom(e.getNom()));
+    public Communique creer(@RequestBody Communique communique) {
+        if (communique.getEtablissementId() != null) {
+            etablissementRepository.findById(communique.getEtablissementId())
+                    .ifPresent(e -> communique.setEtablissementNom(e.getNom()));
         }
-        return repository.save(annonce);
+        return repository.save(communique);
     }
 
     @DeleteMapping("/{id}")

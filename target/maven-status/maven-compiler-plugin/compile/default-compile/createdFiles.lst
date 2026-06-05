@@ -1,4 +1,6 @@
+com/ecole/gestionecoles/controller/CommuniqueController.class
 com/ecole/gestionecoles/GestionEcolesApplication.class
+com/ecole/gestionecoles/repository/CommuniqueRepository.class
 com/ecole/gestionecoles/repository/AnnonceRepository.class
 com/ecole/gestionecoles/model/Utilisateur.class
 com/ecole/gestionecoles/model/Reservation.class
@@ -7,6 +9,7 @@ com/ecole/gestionecoles/repository/UtilisateurRepository.class
 com/ecole/gestionecoles/controller/AuthController$AuthReponse.class
 com/ecole/gestionecoles/controller/MessageController.class
 com/ecole/gestionecoles/model/Etablissement.class
+com/ecole/gestionecoles/model/Communique.class
 com/ecole/gestionecoles/config/AppConfig.class
 com/ecole/gestionecoles/controller/AuthController.class
 com/ecole/gestionecoles/config/SecurityConfig.class

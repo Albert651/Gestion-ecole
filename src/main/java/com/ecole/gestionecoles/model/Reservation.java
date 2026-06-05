@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -21,13 +22,16 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // L'email de l'utilisateur qui reserve (rempli cote serveur, jamais par le client)
+    // L'email de l'utilisateur qui reserve (rempli cote serveur)
     private String utilisateurEmail;
 
     private Long etablissementId;
-
-    // On copie le nom pour l'afficher facilement (sans relire l'etablissement)
     private String etablissementNom;
+
+    // --- Champs du formulaire de reservation ---
+    private String nomComplet;
+    private String telephone;
+    private LocalDate dateSouhaitee;
 
     @Column(columnDefinition = "TEXT")
     private String note;
@@ -41,59 +45,33 @@ public class Reservation {
 
     // ----- Getters & Setters -----
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getUtilisateurEmail() { return utilisateurEmail; }
+    public void setUtilisateurEmail(String utilisateurEmail) { this.utilisateurEmail = utilisateurEmail; }
 
-    public String getUtilisateurEmail() {
-        return utilisateurEmail;
-    }
+    public Long getEtablissementId() { return etablissementId; }
+    public void setEtablissementId(Long etablissementId) { this.etablissementId = etablissementId; }
 
-    public void setUtilisateurEmail(String utilisateurEmail) {
-        this.utilisateurEmail = utilisateurEmail;
-    }
+    public String getEtablissementNom() { return etablissementNom; }
+    public void setEtablissementNom(String etablissementNom) { this.etablissementNom = etablissementNom; }
 
-    public Long getEtablissementId() {
-        return etablissementId;
-    }
+    public String getNomComplet() { return nomComplet; }
+    public void setNomComplet(String nomComplet) { this.nomComplet = nomComplet; }
 
-    public void setEtablissementId(Long etablissementId) {
-        this.etablissementId = etablissementId;
-    }
+    public String getTelephone() { return telephone; }
+    public void setTelephone(String telephone) { this.telephone = telephone; }
 
-    public String getEtablissementNom() {
-        return etablissementNom;
-    }
+    public LocalDate getDateSouhaitee() { return dateSouhaitee; }
+    public void setDateSouhaitee(LocalDate dateSouhaitee) { this.dateSouhaitee = dateSouhaitee; }
 
-    public void setEtablissementNom(String etablissementNom) {
-        this.etablissementNom = etablissementNom;
-    }
+    public String getNote() { return note; }
+    public void setNote(String note) { this.note = note; }
 
-    public String getNote() {
-        return note;
-    }
+    public String getStatut() { return statut; }
+    public void setStatut(String statut) { this.statut = statut; }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getStatut() {
-        return statut;
-    }
-
-    public void setStatut(String statut) {
-        this.statut = statut;
-    }
-
-    public LocalDateTime getDateReservation() {
-        return dateReservation;
-    }
-
-    public void setDateReservation(LocalDateTime dateReservation) {
-        this.dateReservation = dateReservation;
-    }
+    public LocalDateTime getDateReservation() { return dateReservation; }
+    public void setDateReservation(LocalDateTime dateReservation) { this.dateReservation = dateReservation; }
 }
